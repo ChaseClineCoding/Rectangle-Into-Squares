@@ -5,32 +5,20 @@ import java.util.List;
 
 public class SqInRect {
 
-    private static List<Integer> list = new ArrayList<>();
-    private static int i = 0;
-
     public static List<Integer> sqInRect(int lng, int wdth) {
 
-        if (i == 0 && lng == wdth) return null;
+        if (lng == wdth) return null;
 
-        if (lng == wdth) {
-            list.add(wdth);
-            List<Integer> result = list;
-            list = new ArrayList<>();
-            i = 0;
-            return result;
+        List<Integer> result = new ArrayList<>();
+        while (lng != wdth) {
+            int shortSide = Math.min(lng, wdth);
+            int longSide = Math.max(lng, wdth);
+            result.add(shortSide);
+            lng = shortSide;
+            wdth = longSide - shortSide;
         }
-        int shortSide;
-        int longSide;
-        if (lng < wdth) {
-            shortSide = lng;
-            longSide = wdth;
-        }
-        else {
-            shortSide = wdth;
-            longSide = lng;
-        }
-        list.add(shortSide);
-        i++;
-        return sqInRect(shortSide, longSide - shortSide);
+
+        result.add(wdth);
+        return result;
     }
 }
